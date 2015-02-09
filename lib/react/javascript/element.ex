@@ -17,7 +17,7 @@ defimpl React.Javascript.Encoder, for: React.Element do
     "React.createElement(#{tag}, #{attrs}, #{children})"
   end
 
-  @tags React.DOM.__tags__
+  @tags React.DOM.__tags__ |> Enum.map(&to_string/1)
   defp handle_tag(tag) when tag in @tags do
     ~s|"#{tag}"|
   end
