@@ -3,7 +3,7 @@ defimpl React.Javascript.Encoder, for: React.Element do
     attrs = if Map.keys(i.attributes) |> length > 0 do
         "{" <> (Enum.map(i.attributes, fn({key, value}) ->
         "\"#{key}\": #{React.Javascript.Encoder.encode(value)}"
-      end) |> Enum.join(" ")) <> "}"
+      end) |> Enum.join(", ")) <> "}"
     else
       "null"
     end
