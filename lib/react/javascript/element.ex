@@ -13,7 +13,16 @@ defimpl React.Javascript.Encoder, for: React.Element do
       Enum.map(i.children, &React.Javascript.Encoder.encode/1)
         |> Enum.join(", ")
     end
-    "React.createElement(\"#{i.name}\", #{attrs}, #{children})"
+    tag = handle_tag(i.name)
+    "React.createElement(#{tag}, #{attrs}, #{children})"
+  end
+
+  @tags React.DOM.__tags__
+  defp handle_tag(tag) when tag in @tags do
+    ~s|"#{tag}"|
+  end
+  defp handle_tag(tag) do
+    "#{tag}"
   end
 
 end
